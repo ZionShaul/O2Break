@@ -9,6 +9,7 @@ export type Screen =
 export interface NavigationState {
   screen: Screen;
   selectedProgramId?: string;
+  selectedMusicId?: string;
   sessionResult?: SessionResult;
 }
 
@@ -30,6 +31,11 @@ export interface BreathPhase {
   durationMs: number;
 }
 
+export interface BodyFact {
+  textHe: string;
+  textEn: string;
+}
+
 export interface BreathingProgram {
   id: string;
   nameEn: string;
@@ -46,6 +52,16 @@ export interface BreathingProgram {
   gradient: [string, string, string];
   accentColor: string;
   particleColor: string;
+  bodyFacts: BodyFact[];
+}
+
+// Music
+export interface MusicOption {
+  id: string;
+  nameHe: string;
+  nameEn: string;
+  emoji: string;
+  uri: string | null;
 }
 
 // Session State

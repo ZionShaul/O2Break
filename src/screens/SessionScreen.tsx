@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
@@ -15,28 +14,32 @@ import { SessionResult } from '../types';
 import { useBreathingSession } from '../hooks/useBreathingSession';
 import { useBreathingAnimation } from '../hooks/useBreathingAnimation';
 import { useHaptics } from '../hooks/useHaptics';
+import { useBackgroundMusic } from '../hooks/useBackgroundMusic';
 import { BreathingCircle } from '../components/session/BreathingCircle';
 import { SessionTimer } from '../components/session/SessionTimer';
 import { CycleCounter } from '../components/session/CycleCounter';
 import { SessionControls } from '../components/session/SessionControls';
+import { BodyFactDisplay } from '../components/session/BodyFactDisplay';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../constants/colors';
 import { Typography } from '../constants/typography';
 import { Layout } from '../constants/layout';
 
-const { height } = Dimensions.get('window');
-
 interface Props {
   programId: string;
+  musicId: string;
   onComplete: (result: SessionResult) => void;
   onExit: () => void;
 }
 
-export default function SessionScreen({ programId, onComplete, onExit }: Props) {
+export default function SessionScreen({ programId, musicId, onComplete, onExit }: Props) {
   const program = BREATHING_PROGRAMS.find(p => p.id === programId)!;
   const { state, start, pause, resume, stop, getResult } = useBreathingSession(program);
   const { scaleAnim, glowOpacity } = useBreathingAnimation(state, program);
   const { triggerPhase } = useHaptics();
+
+  // Background music
+  useBackgroundMusic(musicId === 'silence' ? null : musicId);
 
   const prevPhaseIndex = useRef(state.currentPhaseIndex);
 
@@ -112,6 +115,12 @@ export default function SessionScreen({ programId, onComplete, onExit }: Props) 
             phaseHe={currentPhase.labelHe}
           />
         </View>
+
+        {/* Body facts — rotating every 30 seconds */}
+        <BodyFactDisplay
+          program={program}
+          elapsedMs={state.elapsedMs}
+        />
 
         {/* Progress bar */}
         <View style={styles.progressBar}>

@@ -139,20 +139,20 @@ export default function HomeScreen({ onStart }: Props) {
           </Animated.Text>
 
           <Animated.Text style={[styles.taglineEn, { opacity: subtitleOpacity }]}>
-            Rebirthing Breathwork
+            Conscious Breathing
           </Animated.Text>
           <Animated.Text style={[styles.taglineHe, { opacity: subtitleOpacity }]}>
-            נשימה מחודשת מודעת
+            נשימה מודעת
           </Animated.Text>
         </View>
 
         {/* CTA */}
         <Animated.View style={[styles.ctaArea, { opacity: ctaOpacity }]}>
           <Text style={styles.description}>
-            בחר תוכנית נשימה והתחל מסע פנימי
+            כל הפסקה היא הזדמנות לנשום
           </Text>
           <Text style={styles.descriptionEn}>
-            Choose a breathing program and begin
+            5–7 minutes · Choose your program
           </Text>
 
           <TouchableOpacity onPress={onStart} style={styles.ctaButton} activeOpacity={0.85}>
@@ -162,8 +162,8 @@ export default function HomeScreen({ onStart }: Props) {
               end={{ x: 1, y: 0 }}
               style={styles.ctaGradient}
             >
-              <Text style={styles.ctaText}>התחל לנשום</Text>
-              <Text style={styles.ctaTextEn}>Start Breathing</Text>
+              <Text style={styles.ctaText}>התחל הפסקה</Text>
+              <Text style={styles.ctaTextEn}>Start Break</Text>
             </LinearGradient>
           </TouchableOpacity>
         </Animated.View>

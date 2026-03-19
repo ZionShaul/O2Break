@@ -27,6 +27,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "cd83db5f-c676-4c39-8ed0-572bb46db48c"
+      }
+    },
+    "owner": "zionshaul"
   }
 }

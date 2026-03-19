@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Animated } from 'react-native';
 import { NavigationState, SessionResult } from './src/types';
 import HomeScreen from './src/screens/HomeScreen';
@@ -37,7 +37,9 @@ export default function App() {
         return (
           <ProgramDetailScreen
             programId={nav.selectedProgramId!}
-            onStart={(id) => navigate({ screen: 'Session', selectedProgramId: id })}
+            onStart={(id, musicId) =>
+              navigate({ screen: 'Session', selectedProgramId: id, selectedMusicId: musicId })
+            }
             onBack={() => navigate({ screen: 'ProgramList' })}
           />
         );
@@ -45,6 +47,7 @@ export default function App() {
         return (
           <SessionScreen
             programId={nav.selectedProgramId!}
+            musicId={nav.selectedMusicId ?? 'silence'}
             onComplete={(result: SessionResult) =>
               navigate({ screen: 'SessionComplete', sessionResult: result })
             }
@@ -57,7 +60,11 @@ export default function App() {
             result={nav.sessionResult!}
             onHome={() => navigate({ screen: 'Home' })}
             onRepeat={() =>
-              navigate({ screen: 'Session', selectedProgramId: nav.sessionResult!.programId })
+              navigate({
+                screen: 'Session',
+                selectedProgramId: nav.sessionResult!.programId,
+                selectedMusicId: nav.selectedMusicId ?? 'silence',
+              })
             }
           />
         );

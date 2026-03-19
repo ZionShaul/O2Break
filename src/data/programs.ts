@@ -8,13 +8,13 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     taglineEn: 'The original connected breath',
     taglineHe: 'הנשימה המחוברת המקורית',
     descriptionEn:
-      'Developed by Leonard Orr in the 1960s, this technique uses gentle nasal circular breathing — the inhale flows directly into the exhale with no pause. The continuous rhythm releases held tension and allows suppressed emotions to surface and integrate naturally. A foundational rebirthing practice.',
+      'Developed by Leonard Orr in the 1960s, this technique uses gentle nasal circular breathing — the inhale flows directly into the exhale with no pause. The continuous rhythm releases held tension and allows suppressed emotions to surface and integrate naturally.',
     descriptionHe:
-      'פותחה על ידי לאונרד אור בשנות ה-60, טכניקה זו משתמשת בנשימת אף עגולה עדינה — השאיפה זורמת ישירות לנשיפה ללא הפסקה. הקצב הרציף משחרר מתח ומאפשר לרגשות מודחקים לעלות ולהשתלב. שיטת הבסיס של הנשימה המחודשת.',
+      'פותחה על ידי לאונרד אור בשנות ה-60, טכניקה זו משתמשת בנשימת אף עגולה עדינה — השאיפה זורמת ישירות לנשיפה ללא הפסקה. הקצב הרציף משחרר מתח ומאפשר לרגשות להשתלב בשקט.',
     origin: 'Leonard Orr, שנות ה-60',
     style: 'classic',
     intensity: 'gentle',
-    defaultDurationMinutes: 20,
+    defaultDurationMinutes: 6,
     phases: [
       { label: 'inhale', labelHe: 'שאיפה', labelEn: 'INHALE', durationMs: 4000 },
       { label: 'exhale', labelHe: 'נשיפה', labelEn: 'EXHALE', durationMs: 4000 },
@@ -22,6 +22,16 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     gradient: ['#0D1B2A', '#1A3A5C', '#0D2137'],
     accentColor: '#4FC3F7',
     particleColor: '#4FC3F7',
+    bodyFacts: [
+      { textHe: 'הלב מאט ב-10 פעימות לדקה — הגוף נרגע', textEn: 'Heart rate drops 10 bpm — body calming' },
+      { textHe: 'רמות CO₂ מתאזנות — המחשבות מתבהרות', textEn: 'CO₂ levels balance — thoughts clearing' },
+      { textHe: 'מערכת העצבים עוברת למצב "נח ותפקד"', textEn: 'Nervous system entering rest-and-digest mode' },
+      { textHe: 'זרימת הדם למוח משתפרת', textEn: 'Blood flow to the brain is improving' },
+      { textHe: 'הגוף מייצר אנדורפינים טבעיים', textEn: 'Body producing natural endorphins' },
+      { textHe: 'לחץ הדם יורד, הכתפיים משתחררות', textEn: 'Blood pressure dropping, shoulders releasing' },
+      { textHe: 'המוח מקבל חמצן איכותי יותר', textEn: 'Brain receiving higher quality oxygen' },
+      { textHe: 'כל נשימה מחזקת את יכולת הגוף להירגע', textEn: 'Each breath strengthens your relaxation response' },
+    ],
   },
   {
     id: 'holotropic',
@@ -30,13 +40,13 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     taglineEn: 'Deep journey into wholeness',
     taglineHe: 'מסע עמוק אל השלמות',
     descriptionEn:
-      'Developed by Stanislav Grof, holotropic breathwork uses deeper and faster mouth breathing to access non-ordinary states of consciousness. More intense than classic rebirthing, it can unlock profound psychological insights and emotional catharsis. Traditionally practiced in group settings.',
+      'Developed by Stanislav Grof, holotropic breathwork uses deeper and faster mouth breathing to access expanded states of consciousness. More intense than classic rebirthing, it can unlock profound psychological insights.',
     descriptionHe:
-      'פותחה על ידי סטניסלב גרוף, משתמשת בנשימת פה עמוקה ומהירה יותר לגישה למצבי תודעה יוצאי דופן. אינטנסיבי יותר מהנשימה הקלאסית, יכולה לשחרר תובנות פסיכולוגיות עמוקות. בדרך כלל מתבצעת בהגדרות קבוצתיות.',
+      'פותחה על ידי סטניסלב גרוף, משתמשת בנשימת פה עמוקה ומהירה לגישה למצבי תודעה מורחבים. עמוקה ועוצמתית, פותחת תובנות פסיכולוגיות משמעותיות.',
     origin: 'Stanislav Grof, שנות ה-70',
     style: 'holotropic',
     intensity: 'intense',
-    defaultDurationMinutes: 30,
+    defaultDurationMinutes: 5,
     phases: [
       { label: 'inhale', labelHe: 'שאיפה', labelEn: 'INHALE', durationMs: 2000 },
       { label: 'exhale', labelHe: 'נשיפה', labelEn: 'EXHALE', durationMs: 2000 },
@@ -44,6 +54,14 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     gradient: ['#1A0533', '#3D1165', '#1A0533'],
     accentColor: '#CE93D8',
     particleColor: '#9C27B0',
+    bodyFacts: [
+      { textHe: 'נשימה מהירה מגבירה את זרימת החמצן בכל הגוף', textEn: 'Faster breathing boosts oxygen throughout the body' },
+      { textHe: 'הדם נעשה בסיסי יותר — תחושה של התרחבות', textEn: 'Blood becomes more alkaline — sense of expansion' },
+      { textHe: 'גלי מוח אלפא עולים — מצב מדיטטיבי עמוק', textEn: 'Alpha brain waves rise — deep meditative state' },
+      { textHe: 'שחרור רגשות מאוחסנים בגוף', textEn: 'Releasing emotions stored in the body' },
+      { textHe: 'תודעה מורחבת — מעבר למחשבות יומיומיות', textEn: 'Expanded awareness beyond everyday thoughts' },
+      { textHe: 'הגוף מגיע לשיא חמצון טבעי', textEn: 'Body reaching peak natural oxygenation' },
+    ],
   },
   {
     id: 'clarity-breathwork',
@@ -52,13 +70,13 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     taglineEn: 'Clear emotions, find your center',
     taglineHe: 'נקה רגשות, מצא את מרכזך',
     descriptionEn:
-      'Developed by Ashanna Solaris and Dana DeLong, Clarity Breathwork combines medium-paced connected breathing with conscious intention-setting. It emphasizes emotional clearing and accessing inner wisdom rather than cathartic release. Gentle yet deeply effective.',
+      'Developed by Ashanna Solaris and Dana DeLong, Clarity Breathwork combines medium-paced connected breathing with conscious intention-setting. It emphasizes emotional clearing and accessing inner wisdom.',
     descriptionHe:
-      'פותחה על ידי אשנה סולריס ודנה דלונג, משלבת נשימה מחוברת בקצב בינוני עם כוונה מודעת. מדגישה ניקוי רגשי וגישה לחכמה פנימית. עדינה אך יעילה עמוקה.',
+      'פותחה על ידי אשנה סולריס ודנה דלונג, משלבת נשימה מחוברת בקצב בינוני עם כוונה מודעת. מדגישה ניקוי רגשי וגישה לחכמה פנימית.',
     origin: 'Ashanna Solaris & Dana DeLong, שנות ה-90',
     style: 'clarity',
     intensity: 'medium',
-    defaultDurationMinutes: 25,
+    defaultDurationMinutes: 6,
     phases: [
       { label: 'inhale', labelHe: 'שאיפה', labelEn: 'INHALE', durationMs: 3500 },
       { label: 'exhale', labelHe: 'נשיפה', labelEn: 'EXHALE', durationMs: 3500 },
@@ -66,6 +84,15 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     gradient: ['#0A2818', '#1B5E35', '#0A2818'],
     accentColor: '#81C784',
     particleColor: '#4CAF50',
+    bodyFacts: [
+      { textHe: 'הנשימה המאוזנת מסנכרנת את שתי ההמיספרות של המוח', textEn: 'Balanced breathing synchronizes both brain hemispheres' },
+      { textHe: 'מרחב פנימי נפתח — מחשבות נעשות ברורות יותר', textEn: 'Inner space opening — thoughts becoming clearer' },
+      { textHe: 'הקורטקס הפרה-פרונטלי מופעל — קבלת החלטות משתפרת', textEn: 'Prefrontal cortex activated — better decision making' },
+      { textHe: 'חוסמים רגשיים מתחילים להשתחרר', textEn: 'Emotional blocks beginning to release' },
+      { textHe: 'בהירות מנטלית עולה עם כל מחזור נשימה', textEn: 'Mental clarity rising with every breath cycle' },
+      { textHe: 'הגוף והנפש מגיעים להרמוניה', textEn: 'Body and mind arriving at harmony' },
+      { textHe: 'חכמה פנימית מתגלה דרך הנשימה', textEn: 'Inner wisdom revealed through the breath' },
+    ],
   },
   {
     id: 'fire-breath',
@@ -74,13 +101,13 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     taglineEn: 'Ignite your vital energy',
     taglineHe: 'הצת את האנרגיה החיונית שלך',
     descriptionEn:
-      'Agni Pranayama — rapid, energizing connected breathing that activates the sympathetic nervous system and builds internal heat. Each breath is sharp and intentional. Use this for energy activation, focus, and clearing stagnation. Not recommended for beginners.',
+      'Agni Pranayama — rapid, energizing connected breathing that activates the sympathetic nervous system and builds internal heat. Each breath is sharp and intentional. Use this for energy activation and sharp focus.',
     descriptionHe:
-      'אגני פראנאיאמה — נשימה מחוברת מהירה ומעצימה המפעילה את מערכת העצבים הסימפטטית ובונה חום פנימי. כל נשימה חדה ומכוונת. מיועד להפעלת אנרגיה וריכוז. לא מומלץ למתחילים.',
+      'אגני פראנאיאמה — נשימה מחוברת מהירה ומעצימה המפעילה את מערכת העצבים הסימפטטית ובונה חום פנימי. כל נשימה חדה ומכוונת. מיועד להפעלת אנרגיה וריכוז.',
     origin: 'מסורת הפראנאיאמה הוודית',
     style: 'fire',
     intensity: 'intense',
-    defaultDurationMinutes: 15,
+    defaultDurationMinutes: 5,
     phases: [
       { label: 'inhale', labelHe: 'שאיפה', labelEn: 'INHALE', durationMs: 1000 },
       { label: 'exhale', labelHe: 'נשיפה', labelEn: 'EXHALE', durationMs: 1000 },
@@ -88,6 +115,14 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     gradient: ['#2D0A00', '#7B2D00', '#2D0A00'],
     accentColor: '#FF8A65',
     particleColor: '#FF5722',
+    bodyFacts: [
+      { textHe: 'נשימה מהירה מפעילה את מערכת העצבים הסימפטטית — אנרגיה!', textEn: 'Rapid breathing activates sympathetic nervous system — energy!' },
+      { textHe: 'חמצן נוסף זורם לשרירים ולמוח', textEn: 'Extra oxygen flowing to muscles and brain' },
+      { textHe: 'טמפרטורת הגוף עולה מעט — האנרגיה בונה', textEn: 'Body temperature rising slightly — energy building' },
+      { textHe: 'ריכוז וערנות בשיאם', textEn: 'Concentration and alertness at their peak' },
+      { textHe: 'האדרנלין הטבעי של הגוף עולה', textEn: 'Natural adrenaline rising in the body' },
+      { textHe: 'האנרגיה הזאת תלווה אותך לשעות הבאות', textEn: 'This energy will carry you through the next hours' },
+    ],
   },
   {
     id: 'earth-breath',
@@ -96,13 +131,13 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     taglineEn: 'Root deep, breathe slow',
     taglineHe: 'שרשות עמוקה, נשימה איטית',
     descriptionEn:
-      'Very slow, grounding circular breathing that activates the parasympathetic nervous system. Extended exhale promotes deep relaxation and a sense of physical rootedness. Ideal for anxiety, stress relief, and preparation for sleep. The slowest and most grounding of the six programs.',
+      'Very slow, grounding circular breathing that activates the parasympathetic nervous system. Extended exhale promotes deep relaxation and a sense of physical rootedness. Ideal for stress relief and mental clarity.',
     descriptionHe:
-      'נשימה עגולה איטית מאוד ומייצבת המפעילה את מערכת העצבים הפאראסימפטטית. נשיפה מורחבת מקדמת הרפיה עמוקה ותחושת שורשיות. אידיאלי לחרדה, הפגת מתח והכנה לשינה.',
+      'נשימה עגולה איטית מאוד ומייצבת המפעילה את מערכת העצבים הפאראסימפטטית. נשיפה מורחבת מקדמת הרפיה עמוקה ותחושת שורשיות. אידיאלי להפגת מתח ובהירות מנטלית.',
     origin: 'עבודת הגוף הסומטית',
     style: 'earth',
     intensity: 'gentle',
-    defaultDurationMinutes: 20,
+    defaultDurationMinutes: 7,
     phases: [
       { label: 'inhale', labelHe: 'שאיפה', labelEn: 'INHALE', durationMs: 6000 },
       { label: 'exhale', labelHe: 'נשיפה', labelEn: 'EXHALE', durationMs: 8000 },
@@ -110,6 +145,16 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     gradient: ['#1A1205', '#3D2B0A', '#1A1205'],
     accentColor: '#BCAAA4',
     particleColor: '#795548',
+    bodyFacts: [
+      { textHe: 'נשימה עמוקה ואיטית מפעילה את עצב הואגוס', textEn: 'Deep slow breathing activates the vagus nerve' },
+      { textHe: 'לחץ הדם מתייצב', textEn: 'Blood pressure stabilizing' },
+      { textHe: 'הורמוני הלחץ (קורטיזול) יורדים', textEn: 'Stress hormones (cortisol) declining' },
+      { textHe: 'השרירים משחררים מתח מצטבר', textEn: 'Muscles releasing accumulated tension' },
+      { textHe: 'הגוף מכין את עצמו לביצועים מיטביים', textEn: 'Body preparing for optimal performance' },
+      { textHe: 'תחושת שורשיות ויציבות — מוכן לכל מה שיבוא', textEn: 'Feeling rooted and stable — ready for anything' },
+      { textHe: 'כל נשיפה ארוכה מעמיקה את ההרפיה', textEn: 'Each long exhale deepens your relaxation' },
+      { textHe: 'מצב מיטבי של רוגע ואנרגיה בו-זמנית', textEn: 'Optimal state of calm and energy simultaneously' },
+    ],
   },
   {
     id: 'water-breath',
@@ -118,13 +163,13 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     taglineEn: 'Flow like water, release like rain',
     taglineHe: 'זרום כמו מים, שחרר כמו גשם',
     descriptionEn:
-      'A fluid, wave-like connected breathing rhythm that mirrors the undulation of ocean waves. Medium-slow pace with emphasis on smooth transitions between phases. Deeply relaxing and effective for gentle emotional release, creative flow states, and meditation.',
+      'A fluid, wave-like connected breathing rhythm that mirrors the undulation of ocean waves. Medium-slow pace with emphasis on smooth transitions. Deeply relaxing and effective for creative flow states.',
     descriptionHe:
-      'קצב נשימה מחוברת, גלי ונוזלי המשקף את גלי האוקיינוס. קצב בינוני-איטי עם דגש על מעברים חלקים בין שלבים. מרגיע עמוקות ויעיל לשחרור רגשי עדין ומדיטציה.',
+      'קצב נשימה מחוברת, גלי ונוזלי המשקף את גלי האוקיינוס. קצב בינוני-איטי עם דגש על מעברים חלקים. מרגיע עמוקות ויעיל למצבי זרימה יצירתית.',
     origin: 'סינתזת הנשימה המחודשת העכשווית',
     style: 'water',
     intensity: 'gentle',
-    defaultDurationMinutes: 20,
+    defaultDurationMinutes: 7,
     phases: [
       { label: 'inhale', labelHe: 'שאיפה', labelEn: 'INHALE', durationMs: 4500 },
       { label: 'exhale', labelHe: 'נשיפה', labelEn: 'EXHALE', durationMs: 5500 },
@@ -132,5 +177,15 @@ export const BREATHING_PROGRAMS: BreathingProgram[] = [
     gradient: ['#002233', '#004466', '#002233'],
     accentColor: '#80DEEA',
     particleColor: '#00BCD4',
+    bodyFacts: [
+      { textHe: 'הנשימה הגלית יוצרת קצב לב יציב ומאוזן', textEn: 'Wave-like breathing creates a steady, balanced heartbeat' },
+      { textHe: 'גוף ונפש מגיעים לתנועה משותפת', textEn: 'Body and mind entering shared flow' },
+      { textHe: 'המוח עובר לגלי תטא — מצב יצירתי וקשוב', textEn: 'Brain shifting to theta waves — creative, receptive state' },
+      { textHe: 'מתח שרירי פוחת, גמישות עולה', textEn: 'Muscle tension decreasing, flexibility increasing' },
+      { textHe: 'זרימה טבעית מחזירה את תחושת הקלות', textEn: 'Natural flow restoring a sense of ease' },
+      { textHe: 'כל גל נשימה שוטף מחשבות עודפות', textEn: 'Each breath wave washing away excess thoughts' },
+      { textHe: 'הרגשה של נוזליות — הגוף בתנועה עדינה', textEn: 'Feeling of fluidity — body in gentle motion' },
+      { textHe: 'מצב מושלם לחזרה לפעילות עם רעננות', textEn: 'Perfect state to return to activity with freshness' },
+    ],
   },
 ];

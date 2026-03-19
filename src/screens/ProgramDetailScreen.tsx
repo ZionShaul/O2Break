@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -13,18 +13,20 @@ import { StatusBar } from 'expo-status-bar';
 import { BREATHING_PROGRAMS } from '../data/programs';
 import { BackButton } from '../components/shared/BackButton';
 import { ProgramBadge } from '../components/programs/ProgramBadge';
+import { MusicSelector } from '../components/programs/MusicSelector';
 import { Colors } from '../constants/colors';
 import { Typography } from '../constants/typography';
 import { Layout } from '../constants/layout';
 
 interface Props {
   programId: string;
-  onStart: (id: string) => void;
+  onStart: (id: string, musicId: string) => void;
   onBack: () => void;
 }
 
 export default function ProgramDetailScreen({ programId, onStart, onBack }: Props) {
   const program = BREATHING_PROGRAMS.find(p => p.id === programId)!;
+  const [selectedMusicId, setSelectedMusicId] = useState('silence');
 
   const contentOpacity = useRef(new Animated.Value(0)).current;
   const contentTranslate = useRef(new Animated.Value(20)).current;
@@ -110,6 +112,13 @@ export default function ProgramDetailScreen({ programId, onStart, onBack }: Prop
               <Text style={styles.rhythmCycle}>מחזור: {totalCycleSecs} שניות · Cycle: {totalCycleSecs}s</Text>
             </View>
 
+            {/* Music selector */}
+            <MusicSelector
+              selectedId={selectedMusicId}
+              accentColor={program.accentColor}
+              onChange={setSelectedMusicId}
+            />
+
             {/* Description */}
             <View style={styles.descBlock}>
               <Text style={styles.descHe}>{program.descriptionHe}</Text>
@@ -128,7 +137,7 @@ export default function ProgramDetailScreen({ programId, onStart, onBack }: Prop
         {/* Start button */}
         <View style={styles.startArea}>
           <TouchableOpacity
-            onPress={() => onStart(program.id)}
+            onPress={() => onStart(program.id, selectedMusicId)}
             style={styles.startButton}
             activeOpacity={0.85}
           >
@@ -138,8 +147,8 @@ export default function ProgramDetailScreen({ programId, onStart, onBack }: Prop
               end={{ x: 1, y: 0 }}
               style={styles.startGradient}
             >
-              <Text style={styles.startText}>התחל מפגש</Text>
-              <Text style={styles.startTextEn}>Begin Session</Text>
+              <Text style={styles.startText}>התחל הפסקה</Text>
+              <Text style={styles.startTextEn}>Start Break</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>

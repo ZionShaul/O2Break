@@ -117,8 +117,8 @@ export default function SessionCompleteScreen({ result, onHome, onRepeat }: Prop
           </View>
 
           {/* Title */}
-          <Text style={styles.title}>המפגש הסתיים!</Text>
-          <Text style={styles.titleEn}>Session Complete</Text>
+          <Text style={styles.title}>ההפסקה הושלמה! 🌬️</Text>
+          <Text style={styles.titleEn}>Break Complete</Text>
 
           {/* Program name */}
           <Text style={[styles.programName, { color: program.accentColor }]}>
@@ -145,7 +145,8 @@ export default function SessionCompleteScreen({ result, onHome, onRepeat }: Prop
 
           {/* Message */}
           <Text style={styles.message}>
-            כל הכבוד על ההשקעה בעצמך. כל נשימה מודעת היא צעד לקראת שחרור ובריאות.
+            כל נשימה מודעת היא מתנה לעצמך.{'\n'}
+            הגוף והנפש שלך קיבלו מה שהם צריכים.
           </Text>
         </Animated.View>
 
@@ -158,8 +159,8 @@ export default function SessionCompleteScreen({ result, onHome, onRepeat }: Prop
               end={{ x: 1, y: 0 }}
               style={styles.repeatGradient}
             >
-              <Text style={styles.repeatText}>נשום שוב</Text>
-              <Text style={styles.repeatTextEn}>Breathe Again</Text>
+              <Text style={styles.repeatText}>הפסקה נוספת</Text>
+              <Text style={styles.repeatTextEn}>Another Break</Text>
             </LinearGradient>
           </TouchableOpacity>
 
