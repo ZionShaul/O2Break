@@ -61,7 +61,7 @@ export interface MusicOption {
   nameHe: string;
   nameEn: string;
   emoji: string;
-  uri: string | null;
+  source: number | null;  // require() returns a number in React Native
 }
 
 // Session State

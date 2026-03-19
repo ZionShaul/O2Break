@@ -7,7 +7,7 @@ export function useBackgroundMusic(musicId: string | null) {
 
   useEffect(() => {
     const option = MUSIC_OPTIONS.find(m => m.id === musicId);
-    if (!option || !option.uri) return;
+    if (!option || !option.source) return;
 
     let mounted = true;
 
@@ -21,7 +21,7 @@ export function useBackgroundMusic(musicId: string | null) {
         });
 
         const { sound } = await Audio.Sound.createAsync(
-          { uri: option.uri as string },
+          option.source as number,
           { shouldPlay: true, isLooping: true, volume: 0.4 }
         );
 
