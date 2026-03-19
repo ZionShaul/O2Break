@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,8 @@ import { useBreathingSession } from '../hooks/useBreathingSession';
 import { useBreathingAnimation } from '../hooks/useBreathingAnimation';
 import { useHaptics } from '../hooks/useHaptics';
 import { useBackgroundMusic } from '../hooks/useBackgroundMusic';
+import { useVoiceGuide } from '../hooks/useVoiceGuide';
+import { useLanguage, t } from '../contexts/LanguageContext';
 import { BreathingCircle } from '../components/session/BreathingCircle';
 import { SessionTimer } from '../components/session/SessionTimer';
 import { CycleCounter } from '../components/session/CycleCounter';
@@ -33,10 +35,13 @@ interface Props {
 }
 
 export default function SessionScreen({ programId, musicId, onComplete, onExit }: Props) {
+  const { lang } = useLanguage();
   const program = BREATHING_PROGRAMS.find(p => p.id === programId)!;
   const { state, start, pause, resume, stop, getResult } = useBreathingSession(program);
   const { scaleAnim, glowOpacity } = useBreathingAnimation(state, program);
   const { triggerPhase } = useHaptics();
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const { speak } = useVoiceGuide(voiceEnabled, lang);
 
   // Background music
   useBackgroundMusic(musicId === 'silence' ? null : musicId);
@@ -55,13 +60,14 @@ export default function SessionScreen({ programId, musicId, onComplete, onExit }
     return () => clearTimeout(timer);
   }, []);
 
-  // Haptic on phase change
+  // Haptic + voice on phase change
   useEffect(() => {
     if (prevPhaseIndex.current !== state.currentPhaseIndex) {
       triggerPhase(state.currentPhase);
+      speak(state.currentPhase);
       prevPhaseIndex.current = state.currentPhaseIndex;
     }
-  }, [state.currentPhaseIndex, state.currentPhase, triggerPhase]);
+  }, [state.currentPhaseIndex, state.currentPhase, triggerPhase, speak]);
 
   // Handle completion
   useEffect(() => {
@@ -99,10 +105,20 @@ export default function SessionScreen({ programId, musicId, onComplete, onExit }
             <Ionicons name="close" size={24} color={Colors.textSecondary} />
           </TouchableOpacity>
           <View style={styles.topCenter}>
-            <Text style={styles.programNameEn} numberOfLines={1}>{program.nameEn}</Text>
-            <Text style={styles.programNameHe} numberOfLines={1}>{program.nameHe}</Text>
+            <Text style={styles.programName} numberOfLines={1}>
+              {t(lang, program.nameHe, program.nameEn)}
+            </Text>
           </View>
-          <View style={{ width: 24 }} />
+          <TouchableOpacity
+            onPress={() => setVoiceEnabled(v => !v)}
+            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+          >
+            <Ionicons
+              name={voiceEnabled ? 'volume-high-outline' : 'volume-mute-outline'}
+              size={22}
+              color={voiceEnabled ? Colors.textSecondary : Colors.textMuted}
+            />
+          </TouchableOpacity>
         </View>
 
         {/* Main breathing area */}
@@ -184,16 +200,10 @@ const styles = StyleSheet.create({
   topCenter: {
     alignItems: 'center',
   },
-  programNameEn: {
-    fontSize: Typography.xs,
-    color: Colors.textMuted,
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
-  },
-  programNameHe: {
+  programName: {
     fontSize: Typography.sm,
     color: Colors.textSecondary,
-    marginTop: 2,
+    letterSpacing: 0.5,
   },
   breathArea: {
     flex: 1,

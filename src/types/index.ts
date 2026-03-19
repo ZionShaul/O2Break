@@ -1,10 +1,12 @@
 // Navigation
 export type Screen =
+  | 'Onboarding'
   | 'Home'
   | 'ProgramList'
   | 'ProgramDetail'
   | 'Session'
-  | 'SessionComplete';
+  | 'SessionComplete'
+  | 'History';
 
 export interface NavigationState {
   screen: Screen;
@@ -86,3 +88,13 @@ export interface SessionResult {
   cycleCount: number;
   completedAt: Date;
 }
+
+// Stored history
+export interface StoredSession extends SessionResult {
+  id: string;
+  programNameHe: string;
+  programNameEn: string;
+}
+
+// Language
+export type Lang = 'he' | 'en';

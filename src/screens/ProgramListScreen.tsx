@@ -12,6 +12,7 @@ import { StatusBar } from 'expo-status-bar';
 import { BREATHING_PROGRAMS } from '../data/programs';
 import { ProgramCard } from '../components/programs/ProgramCard';
 import { BackButton } from '../components/shared/BackButton';
+import { useLanguage, t } from '../contexts/LanguageContext';
 import { Colors } from '../constants/colors';
 import { Typography } from '../constants/typography';
 import { Layout } from '../constants/layout';
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export default function ProgramListScreen({ onSelect, onBack }: Props) {
+  const { lang } = useLanguage();
   const cardAnims = useRef(
     BREATHING_PROGRAMS.map(() => ({
       opacity: new Animated.Value(0),
@@ -61,15 +63,20 @@ export default function ProgramListScreen({ onSelect, onBack }: Props) {
         <Animated.View style={[styles.header, { opacity: headerOpacity }]}>
           <BackButton onPress={onBack} />
           <View style={styles.headerTitles}>
-            <Text style={styles.titleEn}>Choose Your Breath</Text>
-            <Text style={styles.titleHe}>בחר את תוכנית הנשימה שלך</Text>
+            <Text style={styles.titleHe}>
+              {t(lang, 'בחר תוכנית נשימה', 'Choose Your Breath')}
+            </Text>
           </View>
           <View style={{ width: 36 }} />
         </Animated.View>
 
         {/* Info text */}
         <Animated.Text style={[styles.infoText, { opacity: headerOpacity }]}>
-          כל התוכניות מבוססות על עקרון הנשימה העגולה המחוברת — ללא הפסקה בין שאיפה לנשיפה
+          {t(
+            lang,
+            'כל התוכניות מבוססות על עקרון הנשימה העגולה המחוברת — ללא הפסקה בין שאיפה לנשיפה',
+            'All programs are based on connected circular breathing — no pause between inhale and exhale'
+          )}
         </Animated.Text>
 
         {/* Program list */}

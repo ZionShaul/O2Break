@@ -14,6 +14,7 @@ import { BREATHING_PROGRAMS } from '../data/programs';
 import { BackButton } from '../components/shared/BackButton';
 import { ProgramBadge } from '../components/programs/ProgramBadge';
 import { MusicSelector } from '../components/programs/MusicSelector';
+import { useLanguage, t } from '../contexts/LanguageContext';
 import { Colors } from '../constants/colors';
 import { Typography } from '../constants/typography';
 import { Layout } from '../constants/layout';
@@ -25,6 +26,7 @@ interface Props {
 }
 
 export default function ProgramDetailScreen({ programId, onStart, onBack }: Props) {
+  const { lang } = useLanguage();
   const program = BREATHING_PROGRAMS.find(p => p.id === programId)!;
   const [selectedMusicId, setSelectedMusicId] = useState('silence');
 
@@ -61,8 +63,7 @@ export default function ProgramDetailScreen({ programId, onStart, onBack }: Prop
 
             {/* Program name */}
             <View style={styles.nameBlock}>
-              <Text style={styles.nameHe}>{program.nameHe}</Text>
-              <Text style={styles.nameEn}>{program.nameEn}</Text>
+              <Text style={styles.nameHe}>{t(lang, program.nameHe, program.nameEn)}</Text>
               <Text style={styles.origin}>{program.origin}</Text>
             </View>
 
@@ -70,19 +71,22 @@ export default function ProgramDetailScreen({ programId, onStart, onBack }: Prop
             <View style={styles.badgeRow}>
               <ProgramBadge intensity={program.intensity} />
               <View style={styles.durationBadge}>
-                <Text style={styles.durationText}>{program.defaultDurationMinutes} דקות</Text>
+                <Text style={styles.durationText}>
+                  {program.defaultDurationMinutes} {t(lang, 'דקות', 'min')}
+                </Text>
               </View>
             </View>
 
             {/* Tagline */}
             <View style={styles.taglineBlock}>
-              <Text style={styles.taglineHe}>{program.taglineHe}</Text>
-              <Text style={styles.taglineEn}>{program.taglineEn}</Text>
+              <Text style={styles.taglineHe}>{t(lang, program.taglineHe, program.taglineEn)}</Text>
             </View>
 
             {/* Breath rhythm visualizer */}
             <View style={styles.rhythmBlock}>
-              <Text style={styles.rhythmTitle}>קצב הנשימה / Breath Rhythm</Text>
+              <Text style={styles.rhythmTitle}>
+                {t(lang, 'קצב הנשימה', 'Breath Rhythm')}
+              </Text>
               <View style={styles.rhythmVisual}>
                 {program.phases.map((phase, i) => {
                   const maxDuration = Math.max(...program.phases.map(p => p.durationMs));
@@ -101,7 +105,9 @@ export default function ProgramDetailScreen({ programId, onStart, onBack }: Prop
                           },
                         ]}
                       >
-                        <Text style={styles.rhythmLabel}>{phase.labelHe}</Text>
+                        <Text style={styles.rhythmLabel}>
+                          {t(lang, phase.labelHe, phase.labelEn)}
+                        </Text>
                         <Text style={styles.rhythmSecs}>{phase.durationMs / 1000}s</Text>
                       </View>
                       {i < program.phases.length - 1 && <View style={styles.rhythmGap} />}
@@ -109,7 +115,9 @@ export default function ProgramDetailScreen({ programId, onStart, onBack }: Prop
                   );
                 })}
               </View>
-              <Text style={styles.rhythmCycle}>מחזור: {totalCycleSecs} שניות · Cycle: {totalCycleSecs}s</Text>
+              <Text style={styles.rhythmCycle}>
+                {t(lang, `מחזור: ${totalCycleSecs} שניות`, `Cycle: ${totalCycleSecs}s`)}
+              </Text>
             </View>
 
             {/* Music selector */}
@@ -121,15 +129,16 @@ export default function ProgramDetailScreen({ programId, onStart, onBack }: Prop
 
             {/* Description */}
             <View style={styles.descBlock}>
-              <Text style={styles.descHe}>{program.descriptionHe}</Text>
-              <View style={styles.descDivider} />
-              <Text style={styles.descEn}>{program.descriptionEn}</Text>
+              <Text style={styles.descHe}>{t(lang, program.descriptionHe, program.descriptionEn)}</Text>
             </View>
 
             {/* Disclaimer */}
             <Text style={styles.disclaimer}>
-              * לא מומלץ בהריון, עם בעיות לב, אפילפסיה, או תחת השפעת חומרים.
-              התייעץ עם רופא לפני השימוש.
+              {t(
+                lang,
+                '* לא מומלץ בהריון, עם בעיות לב, אפילפסיה, או תחת השפעת חומרים. התייעץ עם רופא לפני השימוש.',
+                '* Not recommended during pregnancy, with heart conditions, epilepsy, or under the influence of substances. Consult a doctor before use.'
+              )}
             </Text>
           </Animated.View>
         </ScrollView>
@@ -147,8 +156,7 @@ export default function ProgramDetailScreen({ programId, onStart, onBack }: Prop
               end={{ x: 1, y: 0 }}
               style={styles.startGradient}
             >
-              <Text style={styles.startText}>התחל הפסקה</Text>
-              <Text style={styles.startTextEn}>Start Break</Text>
+              <Text style={styles.startText}>{t(lang, 'התחל הפסקה', 'Start Break')}</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>

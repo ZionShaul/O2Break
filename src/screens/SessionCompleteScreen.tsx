@@ -7,11 +7,15 @@ import {
   Animated,
   Dimensions,
   SafeAreaView,
+  Share,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
+import { Ionicons } from '@expo/vector-icons';
 import { BREATHING_PROGRAMS } from '../data/programs';
 import { SessionResult } from '../types';
+import { saveSession } from '../utils/storage';
+import { useLanguage, t } from '../contexts/LanguageContext';
 import { Colors } from '../constants/colors';
 import { Typography } from '../constants/typography';
 import { Layout } from '../constants/layout';
@@ -26,16 +30,23 @@ interface Props {
   onRepeat: () => void;
 }
 
-function msToReadable(ms: number): string {
+function msToReadable(ms: number, lang: 'he' | 'en'): string {
   const totalSecs = Math.floor(ms / 1000);
   const m = Math.floor(totalSecs / 60);
   const s = totalSecs % 60;
-  if (m === 0) return `${s} שניות`;
-  if (s === 0) return `${m} דקות`;
-  return `${m}:${s.toString().padStart(2, '0')} דקות`;
+  if (lang === 'he') {
+    if (m === 0) return `${s} שניות`;
+    if (s === 0) return `${m} דקות`;
+    return `${m}:${s.toString().padStart(2, '0')} דקות`;
+  } else {
+    if (m === 0) return `${s}s`;
+    if (s === 0) return `${m} min`;
+    return `${m}:${s.toString().padStart(2, '0')} min`;
+  }
 }
 
 export default function SessionCompleteScreen({ result, onHome, onRepeat }: Props) {
+  const { lang } = useLanguage();
   const program = BREATHING_PROGRAMS.find(p => p.id === result.programId)!;
 
   const mainOpacity = useRef(new Animated.Value(0)).current;
@@ -54,6 +65,14 @@ export default function SessionCompleteScreen({ result, onHome, onRepeat }: Prop
   ).current;
 
   useEffect(() => {
+    // Auto-save session
+    saveSession({
+      id: Date.now().toString(),
+      programNameHe: program.nameHe,
+      programNameEn: program.nameEn,
+      ...result,
+    }).catch(() => {});
+
     // Main content entrance
     Animated.parallel([
       Animated.timing(mainOpacity, { toValue: 1, duration: 500, useNativeDriver: true }),
@@ -77,6 +96,18 @@ export default function SessionCompleteScreen({ result, onHome, onRepeat }: Prop
   const breathsPerMin = result.durationMs > 0
     ? ((result.cycleCount / (result.durationMs / 60000)).toFixed(1))
     : '0';
+
+  const handleShare = () => {
+    const mins = Math.floor(result.durationMs / 60000);
+    const secs = Math.floor((result.durationMs % 60000) / 1000);
+    const timeStr = `${mins}:${String(secs).padStart(2, '0')}`;
+
+    const message = lang === 'he'
+      ? `🌬️ השלמתי הפסקת נשימה!\n\nתוכנית: ${program.nameHe}\nמשך: ${timeStr} דקות\nמחזורים: ${result.cycleCount}\n\nO2Break — נשימה מודעת`
+      : `🌬️ I completed a breathing break!\n\nProgram: ${program.nameEn}\nDuration: ${timeStr} min\nCycles: ${result.cycleCount}\n\nO2Break — Conscious Breathing`;
+
+    Share.share({ message });
+  };
 
   return (
     <LinearGradient colors={['#080C12', '#0E1520', '#080C12']} style={styles.container}>
@@ -117,36 +148,40 @@ export default function SessionCompleteScreen({ result, onHome, onRepeat }: Prop
           </View>
 
           {/* Title */}
-          <Text style={styles.title}>ההפסקה הושלמה! 🌬️</Text>
-          <Text style={styles.titleEn}>Break Complete</Text>
+          <Text style={styles.title}>
+            {t(lang, 'ההפסקה הושלמה! 🌬️', 'Break Complete! 🌬️')}
+          </Text>
 
           {/* Program name */}
           <Text style={[styles.programName, { color: program.accentColor }]}>
-            {program.nameHe}
+            {t(lang, program.nameHe, program.nameEn)}
           </Text>
 
           {/* Stats */}
           <View style={styles.statsGrid}>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{msToReadable(result.durationMs)}</Text>
-              <Text style={styles.statLabel}>משך{'\n'}Duration</Text>
+              <Text style={styles.statValue}>{msToReadable(result.durationMs, lang)}</Text>
+              <Text style={styles.statLabel}>{t(lang, 'משך', 'Duration')}</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
               <Text style={styles.statValue}>{result.cycleCount}</Text>
-              <Text style={styles.statLabel}>מחזורים{'\n'}Cycles</Text>
+              <Text style={styles.statLabel}>{t(lang, 'מחזורים', 'Cycles')}</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
               <Text style={styles.statValue}>{breathsPerMin}</Text>
-              <Text style={styles.statLabel}>נשימות/דקה{'\n'}breaths/min</Text>
+              <Text style={styles.statLabel}>{t(lang, 'נשימות/דקה', 'breaths/min')}</Text>
             </View>
           </View>
 
           {/* Message */}
           <Text style={styles.message}>
-            כל נשימה מודעת היא מתנה לעצמך.{'\n'}
-            הגוף והנפש שלך קיבלו מה שהם צריכים.
+            {t(
+              lang,
+              'כל נשימה מודעת היא מתנה לעצמך.\nהגוף והנפש שלך קיבלו מה שהם צריכים.',
+              'Every conscious breath is a gift to yourself.\nYour body and mind received what they needed.'
+            )}
           </Text>
         </Animated.View>
 
@@ -159,14 +194,22 @@ export default function SessionCompleteScreen({ result, onHome, onRepeat }: Prop
               end={{ x: 1, y: 0 }}
               style={styles.repeatGradient}
             >
-              <Text style={styles.repeatText}>הפסקה נוספת</Text>
-              <Text style={styles.repeatTextEn}>Another Break</Text>
+              <Text style={styles.repeatText}>
+                {t(lang, 'הפסקה נוספת', 'Another Break')}
+              </Text>
             </LinearGradient>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={onHome} style={styles.homeBtn} activeOpacity={0.7}>
-            <Text style={styles.homeText}>חזור לבית · Home</Text>
-          </TouchableOpacity>
+          <View style={styles.bottomRow}>
+            <TouchableOpacity onPress={handleShare} style={styles.shareBtn} activeOpacity={0.7}>
+              <Ionicons name="share-outline" size={18} color={Colors.textSecondary} />
+              <Text style={styles.shareBtnText}>{t(lang, 'שתף', 'Share')}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={onHome} style={styles.homeBtn} activeOpacity={0.7}>
+              <Text style={styles.homeText}>{t(lang, 'חזור לבית', 'Home')}</Text>
+            </TouchableOpacity>
+          </View>
         </Animated.View>
       </SafeAreaView>
     </LinearGradient>
@@ -209,13 +252,8 @@ const styles = StyleSheet.create({
     fontSize: Typography.xl2,
     fontWeight: '700',
     color: Colors.textPrimary,
-    marginBottom: Layout.s1,
-  },
-  titleEn: {
-    fontSize: Typography.base,
-    color: Colors.textMuted,
-    letterSpacing: 1,
     marginBottom: Layout.s5,
+    textAlign: 'center',
   },
   programName: {
     fontSize: Typography.md,
@@ -285,14 +323,26 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: Colors.white,
   },
-  repeatTextEn: {
-    fontSize: Typography.sm,
-    color: 'rgba(255,255,255,0.7)',
-    marginTop: 2,
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: Layout.s8,
+  },
+  shareBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Layout.s2,
+    paddingVertical: Layout.s4,
+    paddingHorizontal: Layout.s4,
+  },
+  shareBtnText: {
+    fontSize: Typography.base,
+    color: Colors.textSecondary,
   },
   homeBtn: {
     paddingVertical: Layout.s4,
-    alignItems: 'center',
+    paddingHorizontal: Layout.s4,
   },
   homeText: {
     fontSize: Typography.base,
