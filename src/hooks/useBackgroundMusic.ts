@@ -14,8 +14,10 @@ export function useBackgroundMusic(musicId: string | null) {
     const loadAndPlay = async () => {
       try {
         await Audio.setAudioModeAsync({
+          allowsRecordingIOS: false,
           playsInSilentModeIOS: true,
-          staysActiveInBackground: false,
+          staysActiveInBackground: true,
+          shouldDuckAndroid: true,
         });
 
         const { sound } = await Audio.Sound.createAsync(
@@ -28,8 +30,8 @@ export function useBackgroundMusic(musicId: string | null) {
         } else {
           await sound.unloadAsync();
         }
-      } catch {
-        // Graceful fallback to silence on any error
+      } catch (e) {
+        console.warn('Background music failed to load:', e);
       }
     };
 
