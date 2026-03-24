@@ -129,6 +129,7 @@ export default function SessionScreen({ programId, musicId, onComplete, onExit }
             accentColor={program.accentColor}
             phaseLabel={currentPhase.labelEn}
             phaseHe={currentPhase.labelHe}
+            lang={lang}
           />
         </View>
 
