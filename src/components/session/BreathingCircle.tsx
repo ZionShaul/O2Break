@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { Layout } from '../../constants/layout';
-import { Colors } from '../../constants/colors';
 import { Typography } from '../../constants/typography';
+import { Lang } from '../../types';
 
 interface Props {
   scaleAnim: Animated.Value;
@@ -10,6 +10,7 @@ interface Props {
   accentColor: string;
   phaseLabel: string;
   phaseHe: string;
+  lang: Lang;
 }
 
 export function BreathingCircle({
@@ -18,6 +19,7 @@ export function BreathingCircle({
   accentColor,
   phaseLabel,
   phaseHe,
+  lang,
 }: Props) {
   const size = Layout.circleSize;
 
@@ -66,8 +68,9 @@ export function BreathingCircle({
           },
         ]}
       >
-        <Text style={[styles.phaseHe, { color: accentColor }]}>{phaseHe}</Text>
-        <Text style={styles.phaseEn}>{phaseLabel}</Text>
+        <Text style={[styles.phaseText, { color: accentColor }]}>
+          {lang === 'he' ? phaseHe : phaseLabel}
+        </Text>
       </Animated.View>
     </View>
   );
@@ -90,17 +93,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  phaseHe: {
+  phaseText: {
     fontSize: Typography.xl2,
     fontWeight: '300',
     textAlign: 'center',
     letterSpacing: 1,
-    marginBottom: Layout.s2,
-  },
-  phaseEn: {
-    fontSize: Typography.sm,
-    color: Colors.textMuted,
-    letterSpacing: Typography.wide_ls,
-    textTransform: 'uppercase',
   },
 });

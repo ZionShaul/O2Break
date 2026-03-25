@@ -4,8 +4,8 @@ import { SessionPhaseLabel, Lang } from '../types';
 
 const CUES: Record<Lang, Record<SessionPhaseLabel, string>> = {
   he: {
-    inhale: 'שאף',
-    exhale: 'נשוף',
+    inhale: 'שאיפה',
+    exhale: 'נשיפה',
     'hold-top': 'החזק',
     'hold-bottom': 'המתן',
   },
