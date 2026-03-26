@@ -1,28 +1,20 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
-import { BreathingSession } from '../types/breathing';
-import { saveSession } from '../utils/storage';
+import React, { createContext, useContext, useState } from 'react';
 
 interface SessionContextValue {
-  activePatternId: string | null;
-  setActivePatternId: (id: string | null) => void;
-  completeSession: (session: BreathingSession) => Promise<void>;
+  activeSessionId: string | null;
+  setActiveSessionId: (id: string | null) => void;
 }
 
 const SessionContext = createContext<SessionContextValue>({
-  activePatternId: null,
-  setActivePatternId: () => {},
-  completeSession: async () => {},
+  activeSessionId: null,
+  setActiveSessionId: () => {},
 });
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  const [activePatternId, setActivePatternId] = useState<string | null>(null);
-
-  const completeSession = useCallback(async (session: BreathingSession) => {
-    await saveSession(session);
-  }, []);
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
 
   return (
-    <SessionContext.Provider value={{ activePatternId, setActivePatternId, completeSession }}>
+    <SessionContext.Provider value={{ activeSessionId, setActiveSessionId }}>
       {children}
     </SessionContext.Provider>
   );

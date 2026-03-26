@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { useSessionStorage } from '../hooks/useSessionStorage';
 import { StatsBarChart } from '../components/StatsBarChart';
-import { getPatternById } from '../utils/breathingPatterns';
 import { COLORS, SPACING, RADIUS } from '../utils/theme';
 
 export function StatsScreen() {
@@ -21,7 +20,6 @@ export function StatsScreen() {
   const weekStats = getWeekStats(new Date());
   const todayStats = getTodayStats();
   const allTime = getAllTimeStats();
-  const topPattern = allTime.topPatternId ? getPatternById(allTime.topPatternId) : null;
 
   const totalMinutes = Math.round(allTime.totalDurationSeconds / 60);
   const todayMinutes = Math.round(todayStats.totalDurationSeconds / 60);
@@ -65,10 +63,10 @@ export function StatsScreen() {
           </View>
         </View>
 
-        {topPattern && (
-          <View style={[styles.card, { borderLeftWidth: 4, borderLeftColor: topPattern.color }]}>
-            <Text style={styles.cardTitle}>תרגיל מועדף</Text>
-            <Text style={styles.topPatternName}>{topPattern.name}</Text>
+        {allTime.topProgramNameHe && (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>תוכנית מועדפת</Text>
+            <Text style={styles.topPatternName}>{allTime.topProgramNameHe}</Text>
           </View>
         )}
 

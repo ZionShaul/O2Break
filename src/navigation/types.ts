@@ -1,8 +1,13 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
+import { SessionResult } from '../types';
 
 export type HomeStackParamList = {
-  PatternSelect: undefined;
-  Breathing: { patternId: string; rounds: number };
+  Home: undefined;
+  History: undefined;
+  ProgramList: undefined;
+  ProgramDetail: { programId: string };
+  Session: { programId: string; musicId: string };
+  SessionComplete: { result: SessionResult; musicId: string };
 };
 
 export type RootTabParamList = {
@@ -10,4 +15,9 @@ export type RootTabParamList = {
   Stats: undefined;
   Reminders: undefined;
   Settings: undefined;
+};
+
+export type RootStackParamList = {
+  Onboarding: undefined;
+  Main: NavigatorScreenParams<RootTabParamList>;
 };
