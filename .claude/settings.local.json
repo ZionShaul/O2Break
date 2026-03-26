@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npx expo:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm create:*)",
+      "Bash(cp:*)",
+      "Bash(npm run:*)",
+      "Bash(node node_modules/.bin/expo install @react-navigation/native @react-navigation/bottom-tabs @react-navigation/native-stack react-native-screens react-native-safe-area-context react-native-reanimated @react-native-async-storage/async-storage expo-notifications expo-device expo-auth-session expo-crypto expo-web-browser expo-constants react-native-svg @react-native-community/datetimepicker date-fns)",
+      "Bash(node node_modules/expo/bin/cli install @react-navigation/native @react-navigation/bottom-tabs @react-navigation/native-stack react-native-screens react-native-safe-area-context react-native-reanimated @react-native-async-storage/async-storage expo-notifications expo-device expo-auth-session expo-crypto expo-web-browser expo-constants react-native-svg @react-native-community/datetimepicker date-fns)",
+      "Bash(gh pr:*)",
+      "Bash(where gh:*)",
+      "Bash(del package-lock.json)"
+    ]
+  }
+}
